@@ -23,8 +23,8 @@ export default tseslint.config(
         "warn",
         { allowConstantExport: true },
       ],
-      semi: ["error"],
-      "react-hooks/exhaustive-deps": ["error"],
+      semi: ["error", "always"],
+      "react-hooks/exhaustive-deps": ["error", "always"],
     },
   },
 );
