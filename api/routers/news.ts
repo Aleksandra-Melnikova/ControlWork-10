@@ -50,7 +50,7 @@ newsRouter.post('/',imagesUpload.single('image'), async (req, res,next) => {
     };
     try {
         const connection = await mySqlDb.getConnection();
-        const [result]= await connection.query('INSERT INTO items (title,description,image) VALUES (?, ?, ?)',
+        const [result]= await connection.query('INSERT INTO news_items (title,description,image) VALUES (?, ?, ?)',
             [item.title,item.description, item.image]);
         const resultHeader = result as ResultSetHeader;
         const [resultOneNew]= await connection.query('SELECT * FROM news_items WHERE id = ?', [resultHeader.insertId]);
