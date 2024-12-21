@@ -6,39 +6,30 @@ import {ResultSetHeader} from "mysql2";
 
 const commentsRouter = express.Router();
 
-// commentsRouter.get('/', async (req, res, next) => {
-//     try {
-//         const connection = await mySqlDb.getConnection();
-//         const [result] = await connection.query('SELECT id, title, image, date FROM news_items');
-//         const items = result as News[];
-//         res.send(items);
-//     }
-//     catch (e){
-//         next(e);
-//     }
-// });
-//
-// commentsRouter.get('/:id', async (req, res,next) => {
-//     const id = req.params.id;
-//     if (!req.params.id) {
-//         res.status(404).send({error:"Not found"});
-//     }
-//     try {
-//         const connection = await mySqlDb.getConnection();
-//         const [result]= await connection.query('SELECT * FROM items WHERE id = ?', [id]);
-//         const item = result as Items[];
-//         if (item.length === 0 ){
-//             res.status(400).send({error:"Item not found"});
-//         } else {
-//             res.send(item[0]);
-//         }
-//     }
-//     catch (e){
-//         next(e);
-//     }
-//
-// });
-
+commentsRouter.get('/', async (req, res, next) => {
+    try {
+    const idQuery = req.query.news_id as string;
+    console.log(idQuery);
+    if(idQuery){
+        const connection = await mySqlDb.getConnection();
+        const [result] = await connection.query('SELECT * FROM comments WHERE news_id = ?', [idQuery]);
+        const comment = result as Comment[];
+        if(comment.length === 0){
+            res.status(404).send({error:"Not found"});
+        }
+        else{
+            res.send(comment);
+        }}
+     else{
+         const connection = await mySqlDb.getConnection();
+         const [result] = await connection.query('SELECT * FROM comments');
+         const comments = result as Comment[];
+         res.send(comments);
+        }}
+        catch (e){
+            next(e);
+        }
+});
 
 commentsRouter.post('/', async (req, res,next) => {
     if(!req.body.text || ! req.body.news_id) {

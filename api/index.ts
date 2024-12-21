@@ -1,7 +1,7 @@
-import express from "express";
 import mySqlDb from "./mySqlDb";
 import newsRouter from "./routers/news";
 import commentsRouter from "./routers/comments";
+import express from "express";
 
 
 const app = express();
