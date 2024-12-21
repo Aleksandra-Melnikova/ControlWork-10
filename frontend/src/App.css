@@ -6,18 +6,13 @@
   box-shadow: 1px 1px 4px 1px darkblue;
 }
 
-.photo {
-  width: 250px;
-  height: 250px;
-}
-
-.contact-item {
-  height: 200px;
-  width: 500px;
-  text-align: start;
-}
-
 .photo-img {
   width: 100%;
-  border-radius: 50%;
+  margin-top: 20px;
+}
+
+.btn-delete {
+  position: absolute;
+  bottom: 20px;
+  left: 85%;
 }

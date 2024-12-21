@@ -1,9 +1,9 @@
-import { IForm, New} from "../../types";
+import { New } from "../../types";
 
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {
- createNew,
-   deleteOneNew,
+  createNew,
+  deleteOneNew,
   fetchNews,
   getOneNew,
 } from "../thunks/newsThunk.ts";
@@ -14,7 +14,7 @@ interface ContactState {
   news: New[];
   isFetchLoading: boolean;
   isDeleteLoading: boolean;
-  oneNew: IForm | null;
+  oneNew: New | null;
   isFetchOneNewLoading: boolean;
 }
 
@@ -26,8 +26,7 @@ const initialState: ContactState = {
   isFetchOneNewLoading: false,
   isDeleteLoading: false,
 };
-export const selectAddLoading = (state: RootState) =>
-  state.news.isAddLoading;
+export const selectAddLoading = (state: RootState) => state.news.isAddLoading;
 export const selectFetchLoading = (state: RootState) =>
   state.news.isFetchLoading;
 export const selectNews = (state: RootState) => state.news.news;
@@ -55,13 +54,10 @@ export const newsSlice = createSlice({
       .addCase(fetchNews.pending, (state) => {
         state.isFetchLoading = true;
       })
-      .addCase(
-          fetchNews.fulfilled,
-        (state, action: PayloadAction<New[]>) => {
-          state.isFetchLoading = false;
-          state.news = action.payload;
-        },
-      )
+      .addCase(fetchNews.fulfilled, (state, action: PayloadAction<New[]>) => {
+        state.isFetchLoading = false;
+        state.news = action.payload;
+      })
       .addCase(fetchNews.rejected, (state) => {
         state.isFetchLoading = false;
       })
@@ -79,18 +75,16 @@ export const newsSlice = createSlice({
         state.oneNew = null;
       })
       .addCase(
-          getOneNew.fulfilled,
-        (state, action: PayloadAction<IForm | null>) => {
-          state.isFetchOneNewLoading  = false;
+        getOneNew.fulfilled,
+        (state, action: PayloadAction<New | null>) => {
+          state.isFetchOneNewLoading = false;
           state.oneNew = action.payload;
         },
       )
       .addCase(getOneNew.rejected, (state) => {
-        state.isFetchOneNewLoading  = false;
-      })
-
+        state.isFetchOneNewLoading = false;
+      });
   },
 });
 
 export const newsReducer = newsSlice.reducer;
-

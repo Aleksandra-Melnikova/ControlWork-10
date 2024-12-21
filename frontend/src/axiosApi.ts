@@ -1,9 +1,8 @@
-import axios from 'axios';
-import {apiURL} from "./globalConstans.ts";
-
+import axios from "axios";
+import { apiURL } from "./globalConstans.ts";
 
 const axiosApi = axios.create({
-  baseURL: apiURL
+  baseURL: apiURL,
 });
 
-export default axiosApi
+export default axiosApi;

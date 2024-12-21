@@ -1,14 +1,12 @@
 import ButtonLoading from "../UI/ButtonLoading/ButtonLoading.tsx";
 import React, { useState } from "react";
-import { useNavigate, } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/hooks.ts";
-import {
-  selectAddLoading,
-} from "../../store/slices/newsSlice.ts";
+import { selectAddLoading } from "../../store/slices/newsSlice.ts";
 import { toast } from "react-toastify";
 import FileInput from "../FileInput/FileInput.tsx";
-import {IForm} from "../../types";
-import {createNew} from "../../store/thunks/newsThunk.ts";
+import { IForm } from "../../types";
+import { createNew } from "../../store/thunks/newsThunk.ts";
 
 export interface IFormProps {
   existingForm?: IForm;
@@ -19,17 +17,15 @@ const initialForm: IForm = {
   image: null,
 };
 
-const Form: React.FC<IFormProps> = ({
-  existingForm = initialForm,
-}) => {
-  // const { id } = useParams();
+const Form: React.FC<IFormProps> = ({ existingForm = initialForm }) => {
   const [form, setForm] = useState<IForm>(existingForm);
   const navigate = useNavigate();
   const createAddLoading = useAppSelector(selectAddLoading);
   const dispatch = useAppDispatch();
 
-
-  const changeForm = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const changeForm = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
     setForm((prevState) => {
       return {
         ...prevState,
@@ -40,22 +36,21 @@ const Form: React.FC<IFormProps> = ({
 
   const addNewNews = async (e: React.FormEvent, form: IForm) => {
     e.preventDefault();
-      if (form.title.trim().length > 0 && form.description.trim().length > 0) {
-        await dispatch(createNew({ ...form }));
-        navigate("/");
-        toast.success("New added successfully.");
-      } else {
-        toast.warning("Fill in the title and description field.");
+    if (form.title.trim().length > 0 && form.description.trim().length > 0) {
+      await dispatch(createNew({ ...form }));
+      navigate("/");
+      toast.success("New added successfully.");
+    } else {
+      toast.warning("Fill in the title and description field.");
     }
   };
 
-
-
   const fileEventChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const {name, files} = e.target;
+    const { name, files } = e.target;
     if (files) {
-      setForm(prevState => ({
-        ...prevState, [name]: files[0] || null,
+      setForm((prevState) => ({
+        ...prevState,
+        [name]: files[0] || null,
       }));
     }
   };
@@ -92,21 +87,12 @@ const Form: React.FC<IFormProps> = ({
           />
         </div>
 
-        {/*<div className="d-flex mb-2">*/}
-        {/*  <label className="me-4 col-2" htmlFor="photoUrl">*/}
-        {/*    Photo url*/}
-        {/*  </label>*/}
-        {/*  <input*/}
-        {/*    value={form.image}*/}
-        {/*    onChange={changeForm}*/}
-        {/*    type="text"*/}
-        {/*    id="photoUrl"*/}
-        {/*    name="photoUrl"*/}
-        {/*    className="form-control"*/}
-        {/*  />*/}
-        {/*</div>*/}
         <div className="d-flex align-items-start mt-4 mb-4">
-          <FileInput onGetFile={fileEventChangeHandler} name={'image'} label={'Image'}/>
+          <FileInput
+            onGetFile={fileEventChangeHandler}
+            name={"image"}
+            label={"Image"}
+          />
         </div>
         <div className="d-flex">
           <ButtonLoading

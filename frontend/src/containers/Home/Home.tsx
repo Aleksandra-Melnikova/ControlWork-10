@@ -1,12 +1,10 @@
 import { useAppDispatch, useAppSelector } from "../../app/hooks.ts";
 import {
-  selectFetchLoading, selectNews,
+  selectFetchLoading,
+  selectNews,
 } from "../../store/slices/newsSlice.ts";
 import { useCallback, useEffect } from "react";
-import {
- deleteOneNew,
- fetchNews,
-} from "../../store/thunks/newsThunk.ts";
+import { deleteOneNew, fetchNews } from "../../store/thunks/newsThunk.ts";
 import NewsItem from "../../components/newsItem/newsItem.tsx";
 import Spinner from "../../components/UI/Spinner/Spinner.tsx";
 
@@ -38,19 +36,20 @@ const Home = () => {
               {" "}
               {news.map((n) => (
                 <NewsItem
-                    key={n.id}
-                    id={n.id}
-                    title={n.title}
-                    image={n.image}
-                    onDelete={() => deleteContact(n.id)} description={n.description} date={n.date}                />
+                  key={n.id}
+                  id={n.id}
+                  title={n.title}
+                  image={n.image}
+                  onDelete={() => deleteContact(n.id)}
+                  description={n.description}
+                  date={n.date}
+                />
               ))}
             </>
           )}
         </>
       ) : (
-        <p className="d-block text-center mt-5">
-          No news, add a new new
-        </p>
+        <p className="d-block text-center mt-5">No news, add a new new</p>
       )}
     </>
   );
